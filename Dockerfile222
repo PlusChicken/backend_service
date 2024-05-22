@@ -1,0 +1,47 @@
+
+FROM openjdk:11.0.14.1-jdk-buster
+
+ARG USER_HOME_DIR="/root"
+ARG SHA=f790857f3b1f90ae8d16281f902c689e4f136ebe584aba45e4b1fa66c80cba826d3e0e52fdd04ed44b4c66f6d3fe3584a057c26dfcac544a60b301e6d0f91c26
+
+WORKDIR /app
+COPY . /app
+
+
+#ven 安装目录挂载进来
+
+VOLUME /usr/share/maven
+
+
+VOLUME /root/.m2
+COPY /usr/share/maven/conf/settings.xml /root/.m2/settings.xml
+
+# 将宿主机的 Maven 仓库目录挂载进来
+
+VOLUME /root/.m2/repository
+
+
+RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
+&& echo "${SHA}  ./maven/apache-maven.tar.gz" | sha512sum -c - \
+&& tar -xzf ./maven/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
+&& ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+
+
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+
+
+## shezhi 
+
+ENV MAVEN_REPO_LOCAL=/root/.m2/repository
+
+# 设置环境变量，指定私有仓库地址
+ENV MAVEN_OPTS -DarchetypeCatalog=local -Dmaven.repo.local=/root/.m2/repository
+ENV MAVEN_CLI_OPTS -s /root/.m2/settings.xml
+ 
+
+RUN mvn clean package -Dmaven.test.skip=true
+
+
+ENTRYPOINT ["sh", "-c", "java -jar /app/sample/target/sample-1.10.0.jar"]
+
