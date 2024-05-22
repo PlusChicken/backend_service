@@ -4,6 +4,7 @@ import com.dji.sample.storage.service.IStorageService;
 import com.dji.sdk.cloudapi.storage.StsCredentialsResponse;
 import com.dji.sdk.cloudapi.storage.api.IHttpStorageService;
 import com.dji.sdk.common.HttpResultResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2021/12/29
  */
 @RestController
+@Slf4j
 public class StorageController implements IHttpStorageService {
 
     @Autowired
@@ -28,6 +30,8 @@ public class StorageController implements IHttpStorageService {
      */
     @Override
     public HttpResultResponse<StsCredentialsResponse> getTemporaryCredential(String workspaceId, HttpServletRequest req, HttpServletResponse rsp) {
+
+        log.info("StorageController::getTemporaryCredential, workspaceId={}",workspaceId);
         StsCredentialsResponse stsCredentials = storageService.getSTSCredentials();
         return HttpResultResponse.success(stsCredentials);
     }
