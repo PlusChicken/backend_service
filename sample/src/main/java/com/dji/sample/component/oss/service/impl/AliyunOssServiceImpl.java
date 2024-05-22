@@ -67,7 +67,7 @@ public class AliyunOssServiceImpl implements IOssService {
             return new CredentialsToken(response.getAccessKeyId(), response.getAccessKeySecret(), response.getSecurityToken(), OssConfiguration.expire);
 
         } catch (ClientException e) {
-            log.error("getCredentials exception={}",e.getErrCode(),e);
+            log.error("getCredentials exception={}",e.getMessage(),e);
             log.debug("Failed to obtain sts.");
             e.printStackTrace();
         }
