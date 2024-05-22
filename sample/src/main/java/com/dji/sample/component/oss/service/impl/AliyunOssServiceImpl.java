@@ -54,6 +54,8 @@ public class AliyunOssServiceImpl implements IOssService {
             request.setRoleSessionName(OssConfiguration.roleSessionName);
 
             AssumeRoleResponse.Credentials response = client.getAcsResponse(request).getCredentials();
+
+            log.info("AliyunOssServiceImpl::getCredentials, request={},credentials={}",request.getRoleArn(), response.getSecurityToken());
             return new CredentialsToken(response.getAccessKeyId(), response.getAccessKeySecret(), response.getSecurityToken(), OssConfiguration.expire);
 
         } catch (ClientException e) {
@@ -94,6 +96,8 @@ public class AliyunOssServiceImpl implements IOssService {
         if (ossClient.doesObjectExist(bucket, objectKey)) {
             throw new RuntimeException("The filename already exists.");
         }
+
+        log.info("AliyunOssServiceImpl::putObject, bucket={},objectKey={}, input={}",bucket,objectKey,input);
         PutObjectResult objectResult = ossClient.putObject(new PutObjectRequest(bucket, objectKey, input, new ObjectMetadata()));
         log.info("Upload FlighttaskCreateFile: {}", objectResult.getETag());
     }
