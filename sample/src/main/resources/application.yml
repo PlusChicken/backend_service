@@ -87,7 +87,7 @@ url:
 
 # Tutorial: https://www.alibabacloud.com/help/en/object-storage-service/latest/use-a-temporary-credential-provided-by-sts-to-access-oss
 oss:
-  enable: false
+  enable: true
   provider: ALIYUN # @see com.dji.sample.component.OssConfiguration.model.enums.OssTypeEnum
   endpoint: https://oss-cn-hangzhou.aliyuncs.com
   access-key: LTAI5tJrkrGwMRNwsMXMsTQJ

@@ -1,5 +1,6 @@
 package com.dji.sample.component.oss.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
@@ -52,6 +53,7 @@ public class AliyunOssServiceImpl implements IOssService {
         try {
             DefaultProfile profile = DefaultProfile.getProfile(
                     OssConfiguration.region, OssConfiguration.accessKey, OssConfiguration.secretKey);
+            log.info("AliyunOssServiceImpl::getCredentials start  profile={}", JSON.toJSONString(profile));
             IAcsClient client = new DefaultAcsClient(profile);
 
             AssumeRoleRequest request = new AssumeRoleRequest();
