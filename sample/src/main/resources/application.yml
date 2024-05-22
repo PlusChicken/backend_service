@@ -89,7 +89,7 @@ url:
 oss:
   enable: true
   provider: ALIYUN # @see com.dji.sample.component.OssConfiguration.model.enums.OssTypeEnum
-  endpoint: https://oss-cn-hangzhou.aliyuncs.com
+  endpoint: oss-cn-hangzhou.aliyuncs.com
   access-key: LTAI5tJrkrGwMRNwsMXMsTQJ
   secret-key: yEiRfIay4X1K8TsncImrT2Vz4zWAaG
   expire: 3600
