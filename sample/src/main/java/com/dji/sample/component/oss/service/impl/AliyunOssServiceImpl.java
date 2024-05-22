@@ -40,8 +40,14 @@ public class AliyunOssServiceImpl implements IOssService {
         return OssTypeEnum.ALIYUN;
     }
 
+    /**
+     *  aliyun获取Credentials
+     * @return
+     */
     @Override
     public CredentialsToken getCredentials() {
+
+        log.info("AliyunOssServiceImpl::getCredentials start ...");
 
         try {
             DefaultProfile profile = DefaultProfile.getProfile(
@@ -59,6 +65,7 @@ public class AliyunOssServiceImpl implements IOssService {
             return new CredentialsToken(response.getAccessKeyId(), response.getAccessKeySecret(), response.getSecurityToken(), OssConfiguration.expire);
 
         } catch (ClientException e) {
+            log.error("getCredentials exception={}",e.getErrCode(),e);
             log.debug("Failed to obtain sts.");
             e.printStackTrace();
         }

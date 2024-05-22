@@ -39,7 +39,7 @@ public class StorageServiceImpl extends AbstractMediaService implements IStorage
         return new StsCredentialsResponse()
                 .setEndpoint(OssConfiguration.endpoint)
                 .setBucket(OssConfiguration.bucket)
-                .setCredentials(ossService.getCredentials())
+                .setCredentials(ossService.getCredentials()) // 此处需要验证
                 .setProvider(OssConfiguration.provider)
                 .setObjectKeyPrefix(OssConfiguration.objectDirPrefix)
                 .setRegion(OssConfiguration.region);
