@@ -27,7 +27,7 @@ public class OssAspectHandler {
                 OssConfiguration.enable,OssConfiguration.endpoint,OssConfiguration.accessKey,OssConfiguration.secretKey,
                 OssConfiguration.region,OssConfiguration.roleArn);
 
-        
+
         if (!OssConfiguration.enable) {
             throw new IllegalArgumentException("Please enable OssConfiguration.");
         }
