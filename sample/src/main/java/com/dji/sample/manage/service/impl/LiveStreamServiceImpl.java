@@ -14,6 +14,7 @@ import com.dji.sdk.mqtt.services.TopicServicesResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
+@Slf4j
 public class LiveStreamServiceImpl implements ILiveStreamService {
 
     @Autowired
@@ -69,6 +71,8 @@ public class LiveStreamServiceImpl implements ILiveStreamService {
     public HttpResultResponse liveStart(LiveTypeDTO liveParam) {
         // Check if this lens is available live.
         HttpResultResponse<DeviceDTO> responseResult = this.checkBeforeLive(liveParam.getVideoId());
+
+        log.info("liveStart responseResult code={}",responseResult.getCode());
         if (HttpResultResponse.CODE_SUCCESS != responseResult.getCode()) {
             return responseResult;
         }
@@ -180,11 +184,15 @@ public class LiveStreamServiceImpl implements ILiveStreamService {
      * @return
      */
     private HttpResultResponse<DeviceDTO> checkBeforeLive(VideoId videoId) {
+
+        log.info("checkBeforeLive videoId={},droneSn={}",videoId,videoId.getDroneSn());
         if (Objects.isNull(videoId)) {
             return HttpResultResponse.error(LiveErrorCodeEnum.ERROR_PARAMETERS);
         }
 
         Optional<DeviceDTO> deviceOpt = deviceService.getDeviceBySn(videoId.getDroneSn());
+
+        log.info("checkBeforeLive videoId={},device domain={}",videoId,deviceOpt.get().getDomain());
         // Check if the gateway device connected to this drone exists
         if (deviceOpt.isEmpty()) {
             return HttpResultResponse.error(LiveErrorCodeEnum.NO_AIRCRAFT);
@@ -201,6 +209,7 @@ public class LiveStreamServiceImpl implements ILiveStreamService {
             return HttpResultResponse.error(LiveErrorCodeEnum.NO_FLIGHT_CONTROL);
         }
 
+        log.info("checkBeforeLive code={}",gatewayList.get(0));
         return HttpResultResponse.success(gatewayList.get(0));
     }
 
