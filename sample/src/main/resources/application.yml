@@ -1,6 +1,5 @@
 server:
   port: 6789
-  additionalPorts: 6790,6791
 spring:
   main:
     allow-bean-definition-overriding: true
