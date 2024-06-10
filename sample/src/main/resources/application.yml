@@ -144,13 +144,13 @@ livestream:
   url:
     # It is recommended to use a program to create Token. https://github.com/AgoraIO/Tools/blob/master/DynamicKey/AgoraDynamicKey/java/src/main/java/io/agora/media/RtcTokenBuilder2.java
     agora:
-      channel: Please enter the agora channel.
-      token: Please enter the agora temporary token.
-      uid:  654321
+      channel: cloud
+      token: 007eJxTYPi+e2muSOXaKoZSc4sMs+jvim1FjZqzT83lNUl30tRYXqrAkGySaJyUlJqWZpGUapJsaGxhnGxikpqWZJ6aamZqlmgkG5ma1hDIyOC1ajULIwMEgvisDMk5+aUpDAwA5bEeAw==
+      uid:  1161394
 
     # RTMP  Note: This IP is the address of the streaming server. If you want to see livestream on web page, you need to convert the RTMP stream to WebRTC stream.
     rtmp:
-      url: rtmp://120.27.159.164:1935/live  # Example: 'rtmp://192.168.1.1/live/'
+      url: rtmp://120.27.159.164/live/  # Example: 'rtmp://192.168.1.1/live/'
     rtsp:
       username: Please enter the username.
       password: Please enter the password.
